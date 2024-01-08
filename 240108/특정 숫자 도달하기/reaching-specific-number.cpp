@@ -11,7 +11,7 @@ int main() {
         total += arr[i];
         cnt++;
     }
-    avg = double(total)/cnt;
+    avg = (double)total/cnt;
 
     cout << fixed; cout.precision(1);
     cout << total << " " << avg;
