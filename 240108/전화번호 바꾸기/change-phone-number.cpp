@@ -7,6 +7,6 @@ int main() {
     cin >> x; cin.get();
     cin >> y; cin.get();
     cin >> z;
-    cout << "010" << "-" << z << "-" << y;
+    cout << "010-" << z << "-" << y;
     return 0;
 }
