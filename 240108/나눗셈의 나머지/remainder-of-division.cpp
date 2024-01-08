@@ -6,10 +6,8 @@ int main() {
 
     cin >> a >> b;
 
-    int tmp;
     while (a>1) {
-        tmp = a%b;
-        left[tmp]++;
+        left[a%b]++;
         a /= b;
     }
 
