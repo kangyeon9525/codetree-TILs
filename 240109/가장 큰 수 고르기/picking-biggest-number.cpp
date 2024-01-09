@@ -8,7 +8,7 @@ int main() {
         cin >> arr[i];
     }
 
-    int max_num = 0;
+    int max_num = arr[0];
     for (int i=0; i<10; i++) {
         if (arr[i] > max_num) max_num = arr[i];
     }
