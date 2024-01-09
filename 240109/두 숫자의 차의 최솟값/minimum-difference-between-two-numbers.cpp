@@ -10,11 +10,8 @@ int main() {
         cin >> arr[i];
     }
 
-    for (int i=0; i<n-1; i++) {
-        for (int j=i+1; j<n; j++) {
-            if (arr[j] >= arr[i] && arr[j]-arr[i] < min_val) min_val = arr[j]-arr[i];
-            else if (arr[i] >= arr[j] && arr[i]-arr[j] < min_val) min_val = arr[i]-arr[j];
-        }
+    for (int i=1; i<n; i++) {
+       if (arr[i]-arr[i-1] < min_val) min_val = arr[i]-arr[i-1];
     }
 
     cout << min_val;
