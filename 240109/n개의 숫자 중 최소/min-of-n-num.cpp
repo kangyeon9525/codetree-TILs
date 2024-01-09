@@ -10,7 +10,7 @@ int main() {
         cin >> arr[i];
     }
 
-    int min_val = arr[0], min_cnt = 1;
+    int min_val = arr[0], min_cnt = 0;
     for (int i=0; i<n; i++) {
         if (arr[i] < min_val) {
             min_val = arr[i];
