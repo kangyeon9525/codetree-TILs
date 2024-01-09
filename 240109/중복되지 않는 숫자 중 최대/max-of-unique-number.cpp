@@ -5,7 +5,7 @@ int main() {
     int n;
     cin >> n;
 
-    int arr[n], val_cnt[1001] = {}, idx = 0;
+    int arr[n], val_cnt[1001] = {};
     for (int i=0; i<n; i++) {
         cin >> arr[i];
     }
