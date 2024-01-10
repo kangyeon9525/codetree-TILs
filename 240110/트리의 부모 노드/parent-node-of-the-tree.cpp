@@ -10,10 +10,12 @@ vector<bool> visited(MAX_N, false);
 
 void dfs(int n) {
     visited[n] = true;
-    for (int i=0; i<edges[n].size(); i++) {
-        if (visited[n]) continue;
-        parent[i] = n;
-        dfs(i);
+    for (int i = 0; i < edges[n].size(); i++) {
+        int neighbor = edges[n][i];
+        if (!visited[neighbor]) {
+            parent[neighbor] = n;
+            dfs(neighbor);
+        }
     }
 }
 
@@ -23,8 +25,7 @@ int main() {
     int n;
     cin >> n;
 
-
-    for (int i=0; i<n; i++) {
+    for (int i = 1; i < n; i++) {
         int x, y;
         cin >> x >> y;
         edges[x].push_back(y);
@@ -36,6 +37,5 @@ int main() {
         cout << parent[i] << '\n';
     }
 
-    
     return 0;
 }
