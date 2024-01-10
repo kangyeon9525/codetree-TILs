@@ -10,6 +10,7 @@ vector<pair<int, int>> edges[MAX_N + 1];
 int parent[MAX_N + 1];
 bool visited[MAX_N + 1];
 int diameter = 0;
+int maxNode;
 
 void dfs(int node, int dist) {
     visited[node] = true;
@@ -22,7 +23,10 @@ void dfs(int node, int dist) {
         dfs(neighbor, dist + weight);
     }
 
-    if (dist > diameter) diameter = dist;
+    if (dist > diameter) {
+        diameter = dist;
+        maxNode = node;
+    }
 }
 
 
@@ -40,6 +44,9 @@ int main() {
     }
 
     dfs(1, 0);
+    fill(visited, visited + MAX_N + 1, false);
+    fill(parent, parent + MAX_N + 1, 0);
+    dfs(maxNode, 0);
     cout << diameter << "\n";
 
     return 0;
