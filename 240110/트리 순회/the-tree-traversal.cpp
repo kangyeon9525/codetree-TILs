@@ -21,7 +21,7 @@ public:
         }
 
         Node* rootNode = findNode(root, rootVal);
-        if (rootNode != nullptr) {
+        if (rootNode) {
             if (leftVal != '.') rootNode->left = new Node(leftVal);
             if (rightVal != '.') rootNode->right = new Node(rightVal);
         }
@@ -70,6 +70,8 @@ public:
         postorder(root);
     }
 };
+
+
 
 int main() {
     ios_base::sync_with_stdio(0);
