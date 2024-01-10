@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#define MAX 26
+#include <map>
 
 using namespace std;
 
