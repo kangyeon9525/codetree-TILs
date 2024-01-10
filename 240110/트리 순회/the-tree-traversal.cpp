@@ -1,94 +1,68 @@
 #include <iostream>
 
+#define MAX_N 26
+
 using namespace std;
 
-struct Node {
-    char data;
-    Node* left;
-    Node* right;
-    Node(char val) : data(val), left(nullptr), right(nullptr) {}
-};
+// 변수 선언
+int n;
+int left_num[MAX_N], right_num[MAX_N];
 
-class BST {
-private:
-    Node* root;
-public:
-    BST() : root(nullptr) {}
+void PreOrder(int x) {
+    // -1이면 존재하지 않으므로 빠져나갑니다.
+    if(x == -1)
+        return;
 
-    void addNode(char rootVal, char leftVal, char rightVal) {
-        if (root == nullptr) {
-            root = new Node(rootVal);
-        }
+    cout << (char)(x + 'A');
+    PreOrder(left_num[x]);
+    PreOrder(right_num[x]);
+}
 
-        Node* rootNode = findNode(root, rootVal);
-        if (rootNode) {
-            if (leftVal != '.') rootNode->left = new Node(leftVal);
-            if (rightVal != '.') rootNode->right = new Node(rightVal);
-        }
-    }
+void InOrder(int x) {
+    // -1이면 존재하지 않으므로 빠져나갑니다.
+    if(x == -1)
+        return;
 
-    void preorder(Node* node) {
-        if (node != nullptr) {
-            cout << node->data;
-            preorder(node->left);
-            preorder(node->right);
-        }
-    }
+    InOrder(left_num[x]);
+    cout << (char)(x + 'A');
+    InOrder(right_num[x]);
+}
 
-    void inorder (Node* node) {
-        if (node != nullptr) {
-            inorder(node->left);
-            cout << node->data;
-            inorder(node->right);
-        }
-    }
+void PostOrder(int x) {
+    // -1이면 존재하지 않으므로 빠져나갑니다.
+    if(x == -1)
+        return;
 
-    void postorder (Node* node) {
-        if (node != nullptr) {
-            postorder(node->left);
-            postorder(node->right);
-            cout << node->data;
-        }
-    }
-
-    Node* findNode(Node* node, char val) {
-        if (node == nullptr) return nullptr;
-
-        if (node->data == val) return node;
-
-        Node* leftNode = findNode(node->left, val);
-        if (leftNode != nullptr) return leftNode;
-
-        return findNode(node->right, val);
-    }
-
-    void printBST() {
-        preorder(root);
-        cout << "\n";
-        inorder(root);
-        cout << "\n";
-        postorder(root);
-    }
-};
-
-
+    PostOrder(left_num[x]);
+    PostOrder(right_num[x]);
+    cout << (char)(x + 'A');
+}
 
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0), cout.tie(0);
-
-    int n;
+    // 입력:
     cin >> n;
 
-    BST tree;
+    // 자식이 없는 경우 -1을 넣어줍니다.
+    for(int i = 0; i < n; i++)
+        left_num[i] = right_num[i] = -1;
 
-    for (int i=0; i<n; i++) {
-        char root, left, right;
-        cin >> root >> left >> right;
-        tree.addNode(root, left, right);
+    for(int i = 0; i < n; i++) {
+        char x, l, r;
+        cin >> x >> l >> r;
+        if(l != '.')
+            left_num[x - 'A'] = l - 'A';
+        if(r != '.')
+            right_num[x - 'A'] = r - 'A';
     }
 
-    tree.printBST();
-
+    // 전위 순회를 진행합니다.
+    PreOrder(0);
+    cout << endl;
+    // 중위 순회를 진행합니다.
+    InOrder(0);
+    cout << endl;
+    // 후위 순회를 진행합니다.
+    PostOrder(0);
+    cout << endl;
     return 0;
 }
