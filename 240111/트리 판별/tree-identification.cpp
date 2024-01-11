@@ -1,35 +1,38 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
-#define MAX_M 1001
 
 using namespace std;
 
 bool isTree(int n, const vector<pair<int, int>>& edges) {
-    if (edges.size() != n-1) return false;
+    if (edges.size() != n - 1) return false;
 
-    vector<int> inDegree(n+1, 0);
-    unordered_set<int> nodes;
+    vector<int> inDegree(n + 1, 0);
+    vector<bool> isNodePresent(n + 1, false);
 
     for (const auto& edge : edges) {
         int start = edge.first;
         int end = edge.second;
-        
+
         inDegree[end]++;
-        nodes.insert(start);
-        nodes.insert(end);
+        isNodePresent[start] = true;
+        isNodePresent[end] = true;
     }
 
     int rootCnt = 0;
 
-    for (int i=1; i<=n; i++) {
+    for (int i = 1; i <= n; i++) {
         if (inDegree[i] == 0) {
             rootCnt++;
             if (rootCnt > 1) return false;
         }
     }
 
-    return (rootCnt == 1 && nodes.size() == n);
+    for (int i = 1; i <= n; i++) {
+        if (!isNodePresent[i]) return false;
+    }
+
+    return rootCnt == 1;
 }
 
 int main() {
@@ -40,14 +43,16 @@ int main() {
     cin >> m;
 
     vector<pair<int, int>> edges;
-    for (int i=0; i<m; i++) {
+    for (int i = 0; i < m; i++) {
         int a, b;
         cin >> a >> b;
         edges.push_back({a, b});
     }
 
-    if (isTree(m+1, edges)) cout << 1;
-    else cout << 0;
+    if (isTree(m + 1, edges))
+        cout << 1;
+    else
+        cout << 0;
 
     return 0;
 }
