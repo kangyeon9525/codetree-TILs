@@ -43,13 +43,15 @@ int main() {
     cin >> m;
 
     vector<pair<int, int>> edges;
+    int maxNodeNumber = 0;
     for (int i = 0; i < m; i++) {
         int a, b;
         cin >> a >> b;
         edges.push_back({a, b});
+        maxNodeNumber = max(maxNodeNumber, max(a, b));
     }
 
-    if (isTree(m + 1, edges))
+    if (isTree(maxNodeNumber, edges))
         cout << 1;
     else
         cout << 0;
