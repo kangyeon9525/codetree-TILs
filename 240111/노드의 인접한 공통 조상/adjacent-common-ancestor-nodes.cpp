@@ -34,8 +34,14 @@ int main() {
     int a, b;
     cin >> a >> b;
 
-    depth[1] = 0;
-    DFS(1);
+    // 부모가 여전히 없는 노드가 루트 노드가 됩니다.
+    int root_vertex = 0;
+    for(int i = 1; i <= n; i++)
+        if(parent[i] == 0)
+            root_vertex = i;
+    
+    depth[root_vertex] = 1;
+    DFS(root_vertex);
 
     // Step 1.
     // 두 노드 a, b의 depth를 비교하며
