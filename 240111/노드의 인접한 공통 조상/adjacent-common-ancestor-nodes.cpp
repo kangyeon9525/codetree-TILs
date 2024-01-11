@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#define MAX_N 100001
 
 using namespace std;
 
@@ -19,9 +20,9 @@ int main() {
     int n;
     cin >> n;
 
-    children.resize(n + 1);
-    parent.resize(n + 1);
-    depth.resize(n + 1);
+    children.resize(MAX_N);
+    parent.resize(MAX_N);
+    depth.resize(MAX_N);
 
     for (int i = 0; i < n - 1; i++) {
         int u, v;
