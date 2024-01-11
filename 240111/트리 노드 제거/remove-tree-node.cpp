@@ -4,7 +4,7 @@
 using namespace std;
 
 int n, removeNodeIdx;
-bool isRemoved[51] = {false, };
+vector<bool> isRemoved;
 vector<vector<int>> tree;
 
 void removeNode(int node) {
@@ -36,6 +36,7 @@ int main() {
 
     cin >> n;
     tree.resize(n);
+    isRemoved.resize(n, false);
 
     for (int i=0; i<n; i++) {
         int parent;
