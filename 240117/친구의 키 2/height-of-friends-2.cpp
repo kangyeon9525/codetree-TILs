@@ -2,6 +2,7 @@
 #include <vector>
 #include <tuple>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
@@ -10,21 +11,40 @@ const int MAX_N = 100000;
 vector<int> edges[MAX_N + 1];
 bool visited[MAX_N + 1];
 bool finished[MAX_N + 1];
-
 stack<int> reversed_order;
 
-void DFS(int x) {
+bool DFS(int x) {
+    visited[x] = true;
+
     for (int i = 0; i < (int)edges[x].size(); i++) {
         int y = edges[x][i];
 
         if (!visited[y]) {
-            visited[y] = true;
-            DFS(y);
+            if (!DFS(y))
+                return false;
+        } else if (!finished[y]) {
+            // Back edge (cycle detected)
+            return false;
         }
     }
 
-    reversed_order.push(x);
     finished[x] = true;
+    reversed_order.push(x);
+    return true;
+}
+
+bool isConsistent(int n) {
+    fill(visited, visited + n + 1, false);
+    fill(finished, finished + n + 1, false);
+
+    for (int i = 1; i <= n; i++) {
+        if (!visited[i]) {
+            if (!DFS(i))
+                return false;
+        }
+    }
+
+    return true;
 }
 
 int main() {
@@ -38,25 +58,11 @@ int main() {
         edges[friend_height[i].first].push_back(friend_height[i].second);
     }
 
-    for (int i = 1; i <= n; i++) {
-        if (!visited[i]) {
-            visited[i] = true;
-            DFS(i);
-        }
+    if (isConsistent(n)) {
+        cout << "Consistent" << endl;
+    } else {
+        cout << "Inconsistent" << endl;
     }
-
-    // 모순 검사
-    for (int i = 0; i < m; i++) {
-        int a = friend_height[i].first;
-        int b = friend_height[i].second;
-
-        if (!finished[a] || !finished[b]) {
-            cout << "Inconsistent";
-            return 0;
-        }
-    }
-
-    cout << "Consistent";
 
     return 0;
 }
